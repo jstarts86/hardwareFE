@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hardware_fe/models/bracket_model.dart';
 import 'package:hardware_fe/screens/ParkAve/order_summary_screen.dart';
-
+import 'package:http/http.dart' as http;
 
 
 class BracketSelectionScreen extends StatelessWidget {
@@ -10,18 +10,10 @@ class BracketSelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final bracket = BracketModel(
-      id: 'bracket_pa_1',
-      name: 'Standard Park Ave Bracket',
-      sku: 'PA-BR-001',
-      description: "Default Description",
-      imageUrl: "",
-      priceInStock: 20.0,
-      priceCustom: 30.0,
-      compatibleComponentIds: [],
-      length: '6 inches',
-    );
-
+    Future<http.Response> fetchBracket() {
+      return  http.get(Uri.parse('http://localhost:4000/api/component/1'));
+    }
+    final bracket = fetchBracket();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Bracket Selection'),
